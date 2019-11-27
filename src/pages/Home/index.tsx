@@ -1,13 +1,16 @@
 import React from 'react';
-import {Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import SearchBarHome from '../../components/SearchBarHome';
+import Headerdiscover from '../../components/Headerdiscover';
+import {View} from 'react-native';
+
 const Home = () => {
   return (
-    <Button
-      icon={<Icon name="arrow-right" size={15} color="white" />}
-      iconRight
-      title="Button with right icon"
-    />
+    <>
+      <View style={{backgroundColor: 'rgb(26,26,26)'}}>
+        <Headerdiscover />
+      </View>
+      <SearchBarHome />
+    </>
   );
 };
 
