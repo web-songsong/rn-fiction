@@ -7,7 +7,7 @@
 //   render() {
 //     return (
 //       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//         <Text>Home!</Text>
+//         <Text>Discover!</Text>
 //       </View>
 //     );
 //   }
@@ -24,7 +24,7 @@
 // }
 //
 // const TabNavigator = createBottomTabNavigator({
-//   Home: HomeScreen,
+//   Discover: HomeScreen,
 //   Settings: SettingsScreen,
 // });
 //
@@ -37,57 +37,51 @@
 // import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
 
-import Test from './test';
-import Home from './pages/Home';
-
 // // const MainNavigator = createStackNavigator({
-// //   Home: {screen: Home},
+// //   Discover: {screen: Discover},
 // //   Profile: {screen: Test},
 // // });
 //
 // const TabNavigator = createBottomTabNavigator({
-//   Home: {screen: Home},
+//   Discover: {screen: Discover},
 //   Profile: {screen: Test},
 // });
 // export default createAppContainer(TabNavigator);
-import * as React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import React, {useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
+import globalColor from './globalColor';
+import Test from './test';
+import HeaderInfo from './components/HeaderInfo';
+import {View} from 'react-native';
+import Discover from './pages/Discover';
+const TAB_ROUTES = [
+  {key: 'play', title: 'play'},
+  {key: 'discover', title: 'discover'},
+];
+const FIRSTSHOW = 1;
 
-const FirstRoute = () => (
-  <View style={[styles.scene, {backgroundColor: '#ff4081'}]} />
-);
+const RENDER_TEMPLATE = {
+  discover: Discover,
+  play: Test,
+};
 
-const SecondRoute = () => (
-  <View style={[styles.scene, {backgroundColor: '#673ab7'}]} />
-);
-
-export default class TabViewExample extends React.Component {
-  state = {
-    index: 1,
-    routes: [{key: 'home', title: 'First'}, {key: 'second', title: 'Second'}],
-  };
-
-  render() {
-    return (
+export default () => {
+  const [tabInfoIndex, setTabInfoIndex] = useState(FIRSTSHOW);
+  return (
+    <>
+      <View
+        style={{
+          backgroundColor: globalColor.G_BG_COLOR,
+        }}>
+        <HeaderInfo />
+      </View>
       <TabView
-        navigationState={this.state}
-        renderScene={SceneMap({
-          second: SecondRoute,
-          home: Home,
-        })}
-        onIndexChange={index => {
-          console.log('xxx', index);
-          this.setState({index});
-        }}
-        // initialLayout={{width:200}}
+        renderTabBar={() => null}
+        navigationState={{index: tabInfoIndex, routes: TAB_ROUTES}}
+        renderScene={SceneMap(RENDER_TEMPLATE)}
+        onIndexChange={setTabInfoIndex}
+        // initialLayout={{width: Dimensions.get('window').width}}
       />
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-});
+    </>
+  );
+};
