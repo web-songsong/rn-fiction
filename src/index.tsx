@@ -52,11 +52,12 @@ import {TabView, SceneMap} from 'react-native-tab-view';
 import globalColor from './globalColor';
 import Test from './test';
 import HeaderInfo from './components/HeaderInfo';
-import {View} from 'react-native';
+// import {View} from 'react-native';
 import Discover from './pages/Discover';
+
 const TAB_ROUTES = [
-  {key: 'play', title: 'play'},
-  {key: 'discover', title: 'discover'},
+  {key: 'play', title: 'PLAY'},
+  {key: 'discover', title: 'DISCOVER'},
 ];
 const FIRSTSHOW = 1;
 
@@ -69,13 +70,11 @@ export default () => {
   const [tabInfoIndex, setTabInfoIndex] = useState(FIRSTSHOW);
   return (
     <>
-      <View
+      <HeaderInfo title={TAB_ROUTES[tabInfoIndex].title} index={tabInfoIndex} />
+      <TabView
         style={{
           backgroundColor: globalColor.G_BG_COLOR,
-        }}>
-        <HeaderInfo />
-      </View>
-      <TabView
+        }}
         renderTabBar={() => null}
         navigationState={{index: tabInfoIndex, routes: TAB_ROUTES}}
         renderScene={SceneMap(RENDER_TEMPLATE)}
