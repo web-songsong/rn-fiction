@@ -47,6 +47,7 @@
 //   Profile: {screen: Test},
 // });
 // export default createAppContainer(TabNavigator);
+
 import React, {useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import globalColor from './globalColor';

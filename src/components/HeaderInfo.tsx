@@ -34,6 +34,7 @@ export default ({title, index}: HaderProps) => {
           <View style={{flexDirection: 'row'}}>
             {[0, 1].map((key: number) => (
               <Badge
+                key={key}
                 badgeStyle={[
                   style.badgeWrap,
                   key === index && style.badgeCheck,

@@ -1,18 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg from '../../components/CarouselImg';
 import {ScrollView} from 'react-native';
-const imgList = [
-  'http://ww1.sinaimg.cn/large/8449ed5dly1g8xdkv1jr4j20xc0xcdik.jpg',
-  'http://ww1.sinaimg.cn/large/8449ed5dly1g9dx60fzsmj205z06jwee.jpg',
-  'http://ww1.sinaimg.cn/large/8449ed5dly1g9dx6rdxsej2069069mx2.jpg',
-];
+import axios from '../../utils/axios';
+interface AllProps {
+  [props: string]: any;
+}
+const Tools = {
+  CarouselImgDataListInit(focus: AllProps) {
+    return focus.data.content.map((item: AllProps) => {
+      return {
+        id: item.id,
+        uri: item.pic_info.url,
+      };
+    });
+  },
+};
 const Discover = () => {
+  const [musicStore, setMusicStore] = useState<AllProps>({});
+  const [dataList, setDataList] = useState([]);
+  useEffect(() => {
+    console.log('=====');
+    axios.get('/getRecommend').then((s: AllProps) => {
+      console.log('xxxxxxx');
+      setMusicStore(s);
+      setDataList(Tools.CarouselImgDataListInit(s.focus));
+    });
+  }, []);
+
   return (
     <>
       <SearchBarHome />
       <ScrollView>
-        <CarouselImg dataList={imgList} />
+        {!!dataList.length && <CarouselImg dataList={dataList} />}
       </ScrollView>
     </>
   );
