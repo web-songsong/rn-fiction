@@ -1,87 +1,25 @@
-// import React from 'react';
-// import {Text, View} from 'react-native';
 // import {createAppContainer} from 'react-navigation';
-// import {createBottomTabNavigator} from 'react-navigation-tabs';
-//
-// class HomeScreen extends React.Component {
-//   render() {
-//     return (
-//       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//         <Text>Discover!</Text>
-//       </View>
-//     );
-//   }
-// }
-//
-// class SettingsScreen extends React.Component {
-//   render() {
-//     return (
-//       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//         <Text>Settings!</Text>
-//       </View>
-//     );
-//   }
-// }
-//
-// const TabNavigator = createBottomTabNavigator({
-//   Discover: HomeScreen,
-//   Settings: SettingsScreen,
-// });
-//
-// export default createAppContainer(TabNavigator);
 
-// import React from 'react';
-// import {createAppContainer} from 'react-navigation';
-// import {AppRegistry} from 'react-native';
-//
-// import {createStackNavigator} from 'react-navigation-stack';
+// import {createBottomTabNavigator} from 'react-navigation-tabs';
+// import {createDrawerNavigator} from 'react-navigation-drawer';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
 
-// // const MainNavigator = createStackNavigator({
-// //   Discover: {screen: Discover},
-// //   Profile: {screen: Test},
-// // });
-//
-// const TabNavigator = createBottomTabNavigator({
-//   Discover: {screen: Discover},
-//   Profile: {screen: Test},
-// });
-// export default createAppContainer(TabNavigator);
+import {createAppContainer} from 'react-navigation';
 
-import React, {useState} from 'react';
-import {TabView, SceneMap} from 'react-native-tab-view';
-import globalColor from './globalColor';
+import {createStackNavigator} from 'react-navigation-stack';
 import Test from './test';
-import HeaderInfo from './components/HeaderInfo';
-// import {View} from 'react-native';
-import Discover from './pages/Discover';
+import Home from './pages/home';
+const DrawerNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: () => ({
+        header: null,
+      }),
+    },
+    Test: {screen: Test},
+  },
+  // {headerMode: 'none'},
+);
 
-const TAB_ROUTES = [
-  {key: 'play', title: 'PLAY'},
-  {key: 'discover', title: 'DISCOVER'},
-];
-const FIRSTSHOW = 1;
-
-const RENDER_TEMPLATE = {
-  discover: Discover,
-  play: Test,
-};
-
-export default () => {
-  const [tabInfoIndex, setTabInfoIndex] = useState(FIRSTSHOW);
-  return (
-    <>
-      <HeaderInfo title={TAB_ROUTES[tabInfoIndex].title} index={tabInfoIndex} />
-      <TabView
-        style={{
-          backgroundColor: globalColor.G_BG_COLOR,
-        }}
-        renderTabBar={() => null}
-        navigationState={{index: tabInfoIndex, routes: TAB_ROUTES}}
-        renderScene={SceneMap(RENDER_TEMPLATE)}
-        onIndexChange={setTabInfoIndex}
-        // initialLayout={{width: Dimensions.get('window').width}}
-      />
-    </>
-  );
-};
+export default createAppContainer(DrawerNavigator);

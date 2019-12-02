@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg from '../../components/CarouselImg';
-import {ScrollView} from 'react-native';
+import {ScrollView, Button} from 'react-native';
 import axios from '../../utils/axios';
+import {TabRouterProps} from '../../utils/typeInterface';
 interface AllProps {
   [props: string]: any;
 }
@@ -16,13 +17,11 @@ const Tools = {
     });
   },
 };
-const Discover = () => {
+const Discover = (props: TabRouterProps) => {
   const [musicStore, setMusicStore] = useState<AllProps>({});
   const [dataList, setDataList] = useState([]);
   useEffect(() => {
-    console.log('=====');
     axios.get('/getRecommend').then((s: AllProps) => {
-      console.log('xxxxxxx');
       setMusicStore(s);
       setDataList(Tools.CarouselImgDataListInit(s.focus));
     });
@@ -33,6 +32,14 @@ const Discover = () => {
       <SearchBarHome />
       <ScrollView>
         {!!dataList.length && <CarouselImg dataList={dataList} />}
+        {/*<VideoPlayer />*/}
+        <Button
+          title="Go to Details... again"
+          onPress={() => {
+            props.route.navigation.navigate('Test', {testName: 'songsong'});
+            console.log(props);
+          }}
+        />
       </ScrollView>
     </>
   );

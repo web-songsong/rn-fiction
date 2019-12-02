@@ -12,7 +12,7 @@ interface CarouselProps {
 
 export default ({dataList}: CarouselProps) => {
   return (
-    <View style={{height: 160}}>
+    <View style={{height: 200}}>
       <Swiper autoplay={true}>
         {dataList.map(item => (
           <View
@@ -20,10 +20,14 @@ export default ({dataList}: CarouselProps) => {
             style={{
               margin: 20,
               flex: 1,
-              borderRadius: 5,
-              padding: 5,
+              borderRadius: 10,
+              overflow: 'hidden',
+              backgroundColor: 'red',
             }}>
-            <Image source={{uri: item.uri}} style={{flex: 1, height: 105}} />
+            <Image
+              source={{uri: item.uri}}
+              style={{flex: 1, height: 170}}
+            />
           </View>
         ))}
       </Swiper>
