@@ -24,8 +24,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App = props => {
-  console.log(props);
+const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />

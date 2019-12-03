@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Image} from 'react-native-elements';
 import Swiper from 'react-native-swiper';
-import AnimatedTabs from 'react-native-animated-tabs';
+
 import {View, TouchableOpacity} from 'react-native';
 
 export interface ImgItemType {
@@ -15,7 +15,7 @@ interface CarouselProps {
 /**/
 export default ({dataList, onPress}: CarouselProps) => {
   return (
-    <View style={{height: 200}}>
+    <View style={{height: 230}}>
       <Swiper autoplay={true}>
         {dataList.map(item => (
           <TouchableOpacity
@@ -27,7 +27,7 @@ export default ({dataList, onPress}: CarouselProps) => {
               borderRadius: 10,
               overflow: 'hidden',
             }}>
-            <Image source={{uri: item.uri}} style={{flex: 1, height: 170}} />
+            <Image source={{uri: item.uri}} style={{flex: 1, height: 200}} />
           </TouchableOpacity>
         ))}
       </Swiper>

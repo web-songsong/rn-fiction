@@ -10,7 +10,6 @@ interface AllProps {
 }
 const Tools = {
   CarouselImgDataListInit(focus: AllProps) {
-    console.log(focus);
     return focus.data.content.map((item: AllProps) => {
       return {
         id: item.id,
@@ -37,7 +36,8 @@ const Discover = (props: TabRouterProps) => {
           <CarouselImg
             dataList={dataList}
             onPress={(data: ImgItemType) => {
-              console.log(data);
+              console.log('home--img: ', data);
+              props.route.navigation.navigate('ListDetails', data);
             }}
           />
         )}
@@ -46,7 +46,6 @@ const Discover = (props: TabRouterProps) => {
           title="Go to Details... again"
           onPress={() => {
             props.route.navigation.navigate('Test', {testName: 'songsong'});
-            console.log(props);
           }}
         />
       </ScrollView>

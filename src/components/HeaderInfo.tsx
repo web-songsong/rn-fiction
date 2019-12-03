@@ -20,6 +20,9 @@ const style = StyleSheet.create({
 export default ({title, index}: HaderProps) => {
   return (
     <Header
+      containerStyle={{
+        borderBottomWidth: 0,
+      }}
       placement="left"
       leftComponent={
         <View>
@@ -27,7 +30,7 @@ export default ({title, index}: HaderProps) => {
             style={{
               color: '#fff',
               fontWeight: '900',
-              fontSize: 18,
+              fontSize: 25,
             }}>
             {title}
           </Text>
