@@ -5,8 +5,6 @@ import HeaderInfo from '../../components/HeaderInfo';
 import Discover from '../Discover';
 import Play from '../Play';
 import {NavigatorProps} from '../../utils/typeInterface';
-import {Text} from 'react-native-elements';
-
 const Home = (props: NavigatorProps) => {
   const TAB_ROUTES = [
     {key: 'Play', title: 'PLAY'},

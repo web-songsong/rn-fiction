@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg, {ImgItemType} from '../../components/CarouselImg';
-
 import {ScrollView, Button} from 'react-native';
-import axios from '../../utils/axios';
 import {TabRouterProps} from '../../utils/typeInterface';
+import {getRecommend} from '../../api/home';
 interface AllProps {
   [props: string]: any;
 }
@@ -14,6 +13,7 @@ const Tools = {
       return {
         id: item.id,
         uri: item.pic_info.url,
+        ...item,
       };
     });
   },
@@ -22,10 +22,12 @@ const Discover = (props: TabRouterProps) => {
   const [musicStore, setMusicStore] = useState<AllProps>({});
   const [dataList, setDataList] = useState<Array<ImgItemType>>([]);
   useEffect(() => {
-    axios.get('/getRecommend').then((s: AllProps) => {
-      setMusicStore(s);
-      setDataList(Tools.CarouselImgDataListInit(s.focus));
-    });
+    const fn = async () => {
+      const result = await getRecommend();
+      setMusicStore(result);
+      setDataList(Tools.CarouselImgDataListInit(result.focus));
+    };
+    fn();
   }, []);
 
   return (
@@ -36,7 +38,6 @@ const Discover = (props: TabRouterProps) => {
           <CarouselImg
             dataList={dataList}
             onPress={(data: ImgItemType) => {
-              console.log('home--img: ', data);
               props.route.navigation.navigate('ListDetails', data);
             }}
           />
