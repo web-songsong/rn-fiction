@@ -1,24 +1,30 @@
 import React, {useState} from 'react';
 import {
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   Text,
   StyleSheet,
   View,
   ScrollView,
 } from 'react-native';
 import globalColor from '../../globalColor';
-import {Overlay, Button} from 'react-native-elements';
+import {Overlay} from 'react-native-elements';
+
 export interface AlbumBaseInfoProps {
   date: string;
   name: string;
   singerName: string;
   docs: string;
 }
+
 const style = StyleSheet.create({
   dateText: {
     fontWeight: '900',
   },
-  textBase: {color: globalColor.LIST_TEXT, fontSize: 14, padding: 5},
+  textBase: {
+    color: globalColor.LIST_TEXT,
+    fontSize: 14,
+    padding: 5,
+  },
   titleName: {
     fontWeight: '900',
     fontSize: 20,
@@ -46,18 +52,39 @@ export default ({date, name, singerName, docs}: AlbumBaseInfoProps) => {
       </View>
 
       <Overlay
+        animationType="fade"
         isVisible={isVisible}
         fullScreen={true}
+        onBackdropPress={() => {
+          console.log('xxxxxxx');
+        }}
+        containerStyle={{
+          backgroundColor: 'yellow',
+        }}
+        overlayStyle={{
+          backgroundColor: 'pink',
+          flex: 1,
+        }}
         overlayBackgroundColor={globalColor.G_BG_COLOR}>
-        <TouchableOpacity
-          disabled={true}
-          onPress={() => {
-            console.log('xxxxx');
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            flex: 1,
+            backgroundColor: '#fff',
           }}>
-          <ScrollView>
-            <Text style={style.textBase}>{docs}</Text>
-          </ScrollView>
-        </TouchableOpacity>
+          <TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
+            <Text
+              style={[
+                style.textBase,
+                {
+                  flex: 1,
+                  // backgroundColor: 'red',
+                },
+              ]}>
+              {docs}
+            </Text>
+          </TouchableWithoutFeedback>
+        </ScrollView>
       </Overlay>
     </>
   );
