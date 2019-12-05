@@ -20,7 +20,7 @@ const Tools = {
 };
 const Discover = (props: TabRouterProps) => {
   const [musicStore, setMusicStore] = useState<AllProps>({});
-  const [dataList, setDataList] = useState<Array<ImgItemType>>([]);
+  const [dataList, setDataList] = useState<Array<ImgItemType>>();
   useEffect(() => {
     const fn = async () => {
       const result = await getRecommend();
@@ -34,7 +34,7 @@ const Discover = (props: TabRouterProps) => {
     <>
       <SearchBarHome />
       <ScrollView>
-        {!!dataList.length && (
+        {dataList && (
           <CarouselImg
             dataList={dataList}
             onPress={(data: ImgItemType) => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image} from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 
@@ -19,6 +19,7 @@ export default ({dataList, onPress}: CarouselProps) => {
       <Swiper autoplay={true}>
         {dataList.map(item => (
           <TouchableOpacity
+            activeOpacity={1}
             onPress={() => onPress(item)}
             key={item.id}
             style={{

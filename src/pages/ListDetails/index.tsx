@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {NavigatorProps} from '../../utils/typeInterface';
 import ShowImageWrap from '../../components/ShowImageWrap';
-import axios from '../../utils/axios';
 import {getAlbumInfo} from '../../api/listDetails';
+import AlbumBaseInfo from './AlbumBaseInfo';
+import {ScrollView} from 'react-native';
+import AlbumList from './AlbumList';
 const ListDetails = (props: NavigatorProps) => {
   const {params} = props.navigation.state;
 
@@ -17,7 +19,10 @@ const ListDetails = (props: NavigatorProps) => {
     fn();
   }, [params.jump_info.url]);
   return (
-    <>
+    <ScrollView
+      style={{
+        padding: 10,
+      }}>
       <View
         style={{
           marginTop: 30,
@@ -25,7 +30,18 @@ const ListDetails = (props: NavigatorProps) => {
         }}>
         <ShowImageWrap uri={params.uri} />
       </View>
-    </>
+      {albumInfo && (
+        <>
+          <AlbumBaseInfo
+            date={albumInfo.aDate}
+            name={albumInfo.name}
+            singerName={albumInfo.singername}
+            docs={albumInfo.desc}
+          />
+          <AlbumList total={albumInfo.total} list={albumInfo.list} />
+        </>
+      )}
+    </ScrollView>
   );
 };
 

@@ -1,12 +1,19 @@
 import React from 'react';
-import {Image} from 'react-native-elements';
-import headerMore from '../assets/images/header-more.png';
+import {Icon} from 'react-native-elements';
+import globalColor from '../globalColor';
+import {View} from 'react-native';
 
 export default () => {
   return (
-    <Image
-      source={headerMore}
-      style={{width: 30, height: 20, marginRight: 30}}
-    />
+    <View
+      style={{
+        marginRight: 20,
+      }}>
+      <Icon
+        name="kebab-horizontal"
+        color={globalColor.ICON_BUTTON}
+        type="octicon"
+      />
+    </View>
   );
 };
