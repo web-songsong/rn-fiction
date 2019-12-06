@@ -21,17 +21,21 @@ const music: DvaApi<MusicState> = {
       const {uri, songid} = payload;
       const list = [...state.playList];
 
-      if (state.flags[songid]) {
-        return state;
+      if (state.flags[songid] > -1) {
+        return {
+          ...state,
+          currentIndex: state.flags[songid],
+        };
       }
-      state.flags[songid] = true;
-      list.unshift({
+      state.flags[songid] = state.playList.length - state.currentIndex;
+      list.push({
         uri,
         songid,
       });
       return {
         ...state,
         playList: list,
+        currentIndex: state.flags[songid],
       };
     },
   },
