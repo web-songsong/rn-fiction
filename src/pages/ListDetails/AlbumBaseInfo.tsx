@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {
   TouchableWithoutFeedback,
-  Text,
   StyleSheet,
   View,
+  Text,
   ScrollView,
 } from 'react-native';
 import globalColor from '../../globalColor';
@@ -36,6 +36,7 @@ const style = StyleSheet.create({
 });
 export default ({date, name, singerName, docs}: AlbumBaseInfoProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [textLayout, setTextLayout] = useState({width: 0, height: 0});
   return (
     <>
       <View style={style.infoWrap}>
@@ -54,36 +55,28 @@ export default ({date, name, singerName, docs}: AlbumBaseInfoProps) => {
       <Overlay
         animationType="fade"
         isVisible={isVisible}
-        fullScreen={true}
-        onBackdropPress={() => {
-          console.log('xxxxxxx');
-        }}
-        containerStyle={{
-          backgroundColor: 'yellow',
-        }}
+        onBackdropPress={() => setIsVisible(false)}
         overlayStyle={{
-          backgroundColor: 'pink',
-          flex: 1,
+          padding: 15,
         }}
+        transparent={true}
         overlayBackgroundColor={globalColor.G_BG_COLOR}>
         <ScrollView
           showsVerticalScrollIndicator={false}
+          onLayout={({nativeEvent}) => setTextLayout(nativeEvent.layout)}
           style={{
-            flex: 1,
-            backgroundColor: '#fff',
+            height: 300,
           }}>
-          <TouchableWithoutFeedback onPress={() => setIsVisible(false)}>
-            <Text
-              style={[
-                style.textBase,
-                {
-                  flex: 1,
-                  // backgroundColor: 'red',
-                },
-              ]}>
-              {docs}
-            </Text>
-          </TouchableWithoutFeedback>
+          <Text
+            onPress={() => setIsVisible(false)}
+            style={[
+              style.textBase,
+              {
+                minHeight: textLayout.height,
+              },
+            ]}>
+            {docs}
+          </Text>
         </ScrollView>
       </Overlay>
     </>

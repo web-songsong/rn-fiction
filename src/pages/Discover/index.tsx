@@ -4,6 +4,7 @@ import CarouselImg, {ImgItemType} from '../../components/CarouselImg';
 import {ScrollView, Button} from 'react-native';
 import {TabRouterProps} from '../../utils/typeInterface';
 import {getRecommend} from '../../api/home';
+import MusicPlayer from '../../components/MusicPlayer';
 interface AllProps {
   [props: string]: any;
 }
@@ -49,6 +50,7 @@ const Discover = (props: TabRouterProps) => {
             props.route.navigation.navigate('Test', {testName: 'songsong'});
           }}
         />
+        <MusicPlayer />
       </ScrollView>
     </>
   );

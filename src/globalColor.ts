@@ -7,4 +7,5 @@ export default {
   HEADER_DOT_check: 'rgba(215,215,215,1)',
   LIST_TEXT: '#8C8C8C',
   ICON_BUTTON: '#000',
+  ICON_BUTTON_LIGHT: '#fff',
 };

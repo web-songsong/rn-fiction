@@ -1,8 +1,9 @@
 import axios from '../utils/axios';
 
-export interface AlbumInfoPrams {
-  albummid: string;
-}
-export const getAlbumInfo = (params: AlbumInfoPrams) => {
+export const getAlbumInfo = (params: {albummid: string}) => {
   return axios.get('/getAlbumInfo', {params});
+};
+
+export const getMusicVKey = (params: {songmid: string}) => {
+  return axios.get('/getMusicVKey', {params});
 };

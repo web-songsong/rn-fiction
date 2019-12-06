@@ -6,9 +6,10 @@ import MadeButton from '../../components/MadeButton';
 export interface AlbumListProps {
   total: number;
   list: Array<any>;
+  onPress: any;
 }
 
-export default ({total, list}: AlbumListProps) => {
+export default ({total, list, onPress}: AlbumListProps) => {
   const subtitleInit = (item: {singer: any}) =>
     item.singer.map((s: {name: string}) => s.name).join(' / ');
 
@@ -48,6 +49,7 @@ export default ({total, list}: AlbumListProps) => {
 
       {list.map((item, index) => (
         <ListItem
+          onPress={() => onPress(item)}
           containerStyle={{
             backgroundColor: 'transparent',
             borderBottomWidth: 0,

@@ -11,7 +11,7 @@ export default () => {
       }}>
       <Icon
         name="kebab-horizontal"
-        color={globalColor.ICON_BUTTON}
+        color={globalColor.ICON_BUTTON_LIGHT}
         type="octicon"
       />
     </View>

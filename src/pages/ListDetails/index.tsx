@@ -6,14 +6,18 @@ import {getAlbumInfo} from '../../api/listDetails';
 import AlbumBaseInfo from './AlbumBaseInfo';
 import {ScrollView} from 'react-native';
 import AlbumList from './AlbumList';
-const ListDetails = (props: NavigatorProps) => {
-  const {params} = props.navigation.state;
+import {MusicState} from '../../models/music';
+import {connect} from 'react-redux';
 
+interface ListDetailsProps extends NavigatorProps {
+  music: MusicState;
+}
+const ListDetails = ({navigation, dispatch}: ListDetailsProps) => {
+  const {params} = navigation.state;
   const [albumInfo, setAlbumInfo] = useState();
   useEffect(() => {
     const fn = async () => {
       const result = await getAlbumInfo({albummid: params.jump_info.url});
-      console.log(result);
       setAlbumInfo(result.data);
     };
     fn();
@@ -38,11 +42,25 @@ const ListDetails = (props: NavigatorProps) => {
             singerName={albumInfo.singername}
             docs={albumInfo.desc}
           />
-          <AlbumList total={albumInfo.total} list={albumInfo.list} />
+          <AlbumList
+            total={albumInfo.total}
+            list={albumInfo.list}
+            onPress={(songData: any) => {
+              console.log('song', songData);
+              dispatch({
+                type: 'music/getSongInfo',
+                payload: {
+                  ...songData,
+                },
+              });
+            }}
+          />
         </>
       )}
     </ScrollView>
   );
 };
 
-export default ListDetails;
+export default connect(({music}: {music: MusicState}) => ({music}))(
+  ListDetails,
+);
