@@ -5,6 +5,8 @@ import {ScrollView, Button} from 'react-native';
 import {TabRouterProps} from '../../utils/typeInterface';
 import {getRecommend} from '../../api/home';
 import MusicPlayer from '../../components/MusicPlayer';
+import {formatUrl} from '../../utils/tools';
+import MusicControl from '../../components/MusicControl';
 interface AllProps {
   [props: string]: any;
 }
@@ -25,6 +27,7 @@ const Discover = (props: TabRouterProps) => {
   useEffect(() => {
     const fn = async () => {
       const result = await getRecommend();
+      console.log('result', result);
       setMusicStore(result);
       setDataList(Tools.CarouselImgDataListInit(result.focus));
     };
@@ -39,7 +42,14 @@ const Discover = (props: TabRouterProps) => {
           <CarouselImg
             dataList={dataList}
             onPress={(data: ImgItemType) => {
-              props.route.navigation.navigate('ListDetails', data);
+              let urlFlag = data.jump_info.url;
+              if (/^http/.test(urlFlag)) {
+                data.jump_info.url = formatUrl(urlFlag).query.mid;
+              }
+              let navigateName = /^\d/.test(data.jump_info.url)
+                ? 'ListDetails'
+                : 'MvVideo';
+              props.route.navigation.navigate(navigateName, data);
             }}
           />
         )}
@@ -47,7 +57,7 @@ const Discover = (props: TabRouterProps) => {
         <Button
           title="Go to Details... again"
           onPress={() => {
-            props.route.navigation.navigate('Test', {testName: 'songsong'});
+            props.route.navigation.navigate('MvVideo', {testName: 'songsong'});
           }}
         />
         <MusicPlayer />

@@ -34,8 +34,35 @@ const music: DvaApi<MusicState> = {
       });
       return {
         ...state,
+        paused: false,
         playList: list,
         currentIndex: state.flags[songid],
+      };
+    },
+    changePaused(state: MusicState) {
+      return {
+        ...state,
+        paused: !state.paused,
+      };
+    },
+    upSong(state: MusicState) {
+      let index = state.currentIndex;
+      const maxIndex = state.playList.length - 1;
+      index = index === 0 ? maxIndex : --index;
+      console.log(index);
+      return {
+        ...state,
+        currentIndex: index,
+      };
+    },
+    downSong(state: MusicState) {
+      let index = state.currentIndex;
+      const maxIndex = state.playList.length - 1;
+      index = index === maxIndex ? 0 : ++index;
+      console.log(index);
+      return {
+        ...state,
+        currentIndex: index,
       };
     },
   },
@@ -45,6 +72,7 @@ const music: DvaApi<MusicState> = {
       let uri;
       const fn = async () => {
         const res: any = await getMusicVKey({songmid});
+        console.log(res);
         if (res.playLists.length) {
           uri = res.playLists[0];
         } else {

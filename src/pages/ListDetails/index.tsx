@@ -46,7 +46,7 @@ const ListDetails = ({navigation, dispatch}: ListDetailsProps) => {
             total={albumInfo.total}
             list={albumInfo.list}
             onPress={(songData: any) => {
-              console.log('song', songData);
+              console.log(`song list ${songData.songname} `, songData);
               dispatch({
                 type: 'music/getSongInfo',
                 payload: {

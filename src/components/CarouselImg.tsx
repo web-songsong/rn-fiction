@@ -7,10 +7,11 @@ import {View, TouchableOpacity} from 'react-native';
 export interface ImgItemType {
   id: number;
   uri: string;
+  jump_info: any;
 }
 interface CarouselProps {
   dataList: Array<ImgItemType>;
-  onPress: Function;
+  onPress: (props: any) => void;
 }
 /**/
 export default ({dataList, onPress}: CarouselProps) => {

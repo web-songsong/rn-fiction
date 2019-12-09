@@ -1,6 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import App from './navigation-config';
+import MusicControl from './components/MusicControl';
 
 import models from './dva';
 
@@ -17,5 +18,6 @@ app.start();
 export default () => (
   <Provider store={app._store}>
     <App />
+    <MusicControl />
   </Provider>
 );

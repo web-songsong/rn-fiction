@@ -10,6 +10,7 @@ import Test from './test';
 import Home from './pages/Home';
 import ListDetails from './pages/ListDetails';
 import HeaderRight from './components/HeaderRight';
+import MvVideo from './pages/MvVideo';
 
 const DrawerNavigator = createStackNavigator(
   {
@@ -23,6 +24,12 @@ const DrawerNavigator = createStackNavigator(
       screen: ListDetails,
       navigationOptions: {
         headerRight: HeaderRight,
+      },
+    },
+    MvVideo: {
+      screen: MvVideo,
+      navigationOptions: {
+        header: null,
       },
     },
     Test: {screen: Test},
