@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {NavigatorProps} from '../../utils/typeInterface';
 import ShowImageWrap from '../../components/ShowImageWrap';
-import {getAlbum} from '../../api/listDetails';
+import {getAlbum} from '../../api/albumListDetails';
 import AlbumBaseInfo from './AlbumBaseInfo';
 import {ScrollView} from 'react-native';
 import AlbumList from './AlbumList';
@@ -14,7 +14,8 @@ import {dateFormat} from '../../utils/tools';
 interface ListDetailsProps extends NavigatorProps {
   music: MusicState;
 }
-const ListDetails = ({navigation, dispatch}: ListDetailsProps) => {
+
+const AlbumListDetails = ({navigation, dispatch}: ListDetailsProps) => {
   const params: ImgItemType = navigation.state.params;
   const [albumInfo, setAlbumInfo] = useState();
   useEffect(() => {
@@ -44,7 +45,6 @@ const ListDetails = ({navigation, dispatch}: ListDetailsProps) => {
             docs={albumInfo.album.description}
           />
           <AlbumList
-            total={albumInfo.songs.length}
             list={albumInfo.songs}
             onPress={(songData: any) => {
               console.log(`song list ${songData.name} `, songData);
@@ -63,5 +63,5 @@ const ListDetails = ({navigation, dispatch}: ListDetailsProps) => {
 };
 
 export default connect(({music}: {music: MusicState}) => ({music}))(
-  ListDetails,
+  AlbumListDetails,
 );

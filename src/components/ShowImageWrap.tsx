@@ -1,29 +1,44 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {Image} from 'react-native-elements';
 export interface ShowImageWrapProps {
   uri: string;
+  width?: number;
+  height?: number;
+  margin?: number;
+  onPress?: any;
+  borderRadius?: number;
 }
 
-export default ({uri}: ShowImageWrapProps) => {
+export default ({
+  uri,
+  borderRadius,
+  width,
+  height,
+  margin,
+  onPress,
+}: ShowImageWrapProps) => {
   return (
     <View
       style={{
-        width: 200,
-        height: 200,
-        borderRadius: 20,
+        width: width || 200,
+        height: height || 200,
+        borderRadius: borderRadius || 0,
         overflow: 'hidden',
+        margin,
       }}>
-      <Image
-        source={{uri}}
-        containerStyle={{
-          borderRadius: 300,
-        }}
-        style={{
-          width: 200,
-          height: 200,
-        }}
-      />
+      <TouchableOpacity onPress={onPress}>
+        <Image
+          source={{uri}}
+          containerStyle={{
+            borderRadius: 300,
+          }}
+          style={{
+            width: width || 200,
+            height: height || 200,
+          }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

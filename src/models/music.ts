@@ -1,5 +1,5 @@
 import {DvaApi} from '../utils/typeInterface';
-import {getMusic} from '../api/listDetails';
+import {getMusic} from '../api/albumListDetails';
 
 export interface MusicState {
   paused: boolean;

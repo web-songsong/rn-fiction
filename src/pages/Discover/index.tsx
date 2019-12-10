@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg, {ImgItemType} from '../../components/CarouselImg';
-import {ScrollView, Button} from 'react-native';
+import {ScrollView} from 'react-native';
 import {TabRouterProps} from '../../utils/typeInterface';
-import {getAlbumNewest} from '../../api/home';
-import MusicPlayer from '../../components/MusicPlayer';
-
+import {getAlbumNewest, getPersonalized} from '../../api/discover';
+import RecommendList from './RecommendList';
 const Discover = (props: TabRouterProps) => {
   const [dataList, setDataList] = useState<Array<ImgItemType>>();
+  const [personalized, setPersonalized] = useState();
 
   useEffect(() => {
     (async () => {
-      const result: any = await getAlbumNewest();
-      setDataList(result.albums);
+      const resultAlbum: any = await getAlbumNewest();
+      const resultPersonal: any = await getPersonalized();
+      setDataList(resultAlbum.albums);
+      setPersonalized(resultPersonal.result);
     })();
   }, []);
 
@@ -24,18 +26,25 @@ const Discover = (props: TabRouterProps) => {
           <CarouselImg
             dataList={dataList}
             onPress={(data: ImgItemType) => {
-              let navigateName = 'ListDetails';
+              let navigateName = 'AlbumListDetails';
               props.route.navigation.navigate(navigateName, data);
             }}
           />
         )}
-        <Button
-          title="Go to Details... again"
-          onPress={() => {
-            props.route.navigation.navigate('MvVideo', {testName: 'songsong'});
-          }}
-        />
-        <MusicPlayer />
+        {/*/}
+        {/*  title="Go to Details... again"*/}
+        {/*  onPress={() => {*/}
+        {/*    props.route.navigation.navigate('MvVideo', {testName: 'songsong'});*/}
+        {/*  }}*/}
+        {/*/>*/}
+        {personalized && (
+          <RecommendList
+            personalized={personalized}
+            onPress={recommendData => {
+              props.route.navigation.navigate('SongList', recommendData);
+            }}
+          />
+        )}
       </ScrollView>
     </>
   );

@@ -22,7 +22,7 @@ interface CarouselProps {
 export default ({dataList, onPress}: CarouselProps) => {
   return (
     <View style={{height: 230}}>
-      <Swiper autoplay={true}>
+      <Swiper autoplay={true} autoplayTimeout={5}>
         {dataList.map(item => (
           <TouchableOpacity
             activeOpacity={1}

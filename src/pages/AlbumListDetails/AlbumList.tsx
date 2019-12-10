@@ -4,19 +4,18 @@ import globalColor from '../../globalColor';
 import MadeButton from '../../components/MadeButton';
 
 export interface AlbumListProps {
-  total: number;
   list: Array<any>;
   onPress: any;
 }
 
-export default ({total, list, onPress}: AlbumListProps) => {
+export default ({list, onPress}: AlbumListProps) => {
   const subtitleInit = (item: {ar: any}) =>
     item.ar.map((s: {name: string}) => s.name).join(' / ');
 
   return (
     <>
       <ListItem
-        title={total.toString()}
+        title={list.length + ''}
         containerStyle={{
           backgroundColor: 'transparent',
         }}

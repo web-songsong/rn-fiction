@@ -8,9 +8,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import globalColor from './globalColor';
 import Test from './test';
 import Home from './pages/Home';
-import ListDetails from './pages/ListDetails';
+import AlbumListDetails from './pages/AlbumListDetails';
 import HeaderRight from './components/HeaderRight';
 import MvVideo from './pages/MvVideo';
+import SongList from './pages/SongList';
 
 const DrawerNavigator = createStackNavigator(
   {
@@ -20,8 +21,8 @@ const DrawerNavigator = createStackNavigator(
         header: null,
       },
     },
-    ListDetails: {
-      screen: ListDetails,
+    AlbumListDetails: {
+      screen: AlbumListDetails,
       navigationOptions: {
         headerRight: HeaderRight,
       },
@@ -30,6 +31,12 @@ const DrawerNavigator = createStackNavigator(
       screen: MvVideo,
       navigationOptions: {
         header: null,
+      },
+    },
+    SongList: {
+      screen: SongList,
+      navigationOptions: {
+        headerRight: HeaderRight,
       },
     },
     Test: {screen: Test},
