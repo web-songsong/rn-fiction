@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://39.106.33.162/';
+axios.defaults.baseURL = 'http://iwenwiki.com:3000/';
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -17,8 +17,12 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   function(response) {
     // Do something with response data
+
     const {data} = response;
-    return data.response;
+
+    console.log('------ axios ------');
+    console.log(response.config.url, '==> ', data);
+    return data;
   },
   function(error) {
     // Do something with response error

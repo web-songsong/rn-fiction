@@ -1,5 +1,3 @@
-import {AxiosRequestConfig} from 'axios';
-
 export interface DvaModel {
   dispatch?: any;
   [modelName: string]: any;
@@ -15,8 +13,6 @@ export interface TabRouterProps extends DvaModel {
   position: any;
   route: any;
 }
-
-export type AxiosFn = (config?: AxiosRequestConfig) => any;
 
 export interface DvaApi<T> {
   namespace: string;

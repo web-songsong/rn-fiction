@@ -1,9 +1,9 @@
 import axios from '../utils/axios';
 
-export const getAlbumInfo = (params: {albummid: string}) => {
-  return axios.get('/getAlbumInfo', {params});
+export const getAlbum = (params: {id: number}) => {
+  return axios.get('/album', {params});
 };
 
-export const getMusicVKey = (params: {songmid: string}) => {
-  return axios.get('/getMusicVKey', {params});
+export const getMusic = (params: {id: string}) => {
+  return axios.get('/song/url', {params});
 };

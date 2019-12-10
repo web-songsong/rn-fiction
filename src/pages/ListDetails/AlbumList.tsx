@@ -10,8 +10,8 @@ export interface AlbumListProps {
 }
 
 export default ({total, list, onPress}: AlbumListProps) => {
-  const subtitleInit = (item: {singer: any}) =>
-    item.singer.map((s: {name: string}) => s.name).join(' / ');
+  const subtitleInit = (item: {ar: any}) =>
+    item.ar.map((s: {name: string}) => s.name).join(' / ');
 
   return (
     <>
@@ -68,8 +68,8 @@ export default ({total, list, onPress}: AlbumListProps) => {
               {index + 1}
             </Text>
           }
-          key={item.songid}
-          title={item.songname}
+          key={item.id}
+          title={item.name}
           subtitle={subtitleInit(item)}
           subtitleStyle={{
             color: globalColor.LIST_TEXT,

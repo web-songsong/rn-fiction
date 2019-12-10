@@ -3,35 +3,17 @@ import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg, {ImgItemType} from '../../components/CarouselImg';
 import {ScrollView, Button} from 'react-native';
 import {TabRouterProps} from '../../utils/typeInterface';
-import {getRecommend} from '../../api/home';
+import {getAlbumNewest} from '../../api/home';
 import MusicPlayer from '../../components/MusicPlayer';
-import {formatUrl} from '../../utils/tools';
-import MusicControl from '../../components/MusicControl';
-interface AllProps {
-  [props: string]: any;
-}
-const Tools = {
-  CarouselImgDataListInit(focus: AllProps) {
-    return focus.data.content.map((item: AllProps) => {
-      return {
-        id: item.id,
-        uri: item.pic_info.url,
-        ...item,
-      };
-    });
-  },
-};
+
 const Discover = (props: TabRouterProps) => {
-  const [musicStore, setMusicStore] = useState<AllProps>({});
   const [dataList, setDataList] = useState<Array<ImgItemType>>();
+
   useEffect(() => {
-    const fn = async () => {
-      const result = await getRecommend();
-      console.log('result', result);
-      setMusicStore(result);
-      setDataList(Tools.CarouselImgDataListInit(result.focus));
-    };
-    fn();
+    (async () => {
+      const result: any = await getAlbumNewest();
+      setDataList(result.albums);
+    })();
   }, []);
 
   return (
@@ -42,18 +24,11 @@ const Discover = (props: TabRouterProps) => {
           <CarouselImg
             dataList={dataList}
             onPress={(data: ImgItemType) => {
-              let urlFlag = data.jump_info.url;
-              if (/^http/.test(urlFlag)) {
-                data.jump_info.url = formatUrl(urlFlag).query.mid;
-              }
-              let navigateName = /^\d/.test(data.jump_info.url)
-                ? 'ListDetails'
-                : 'MvVideo';
+              let navigateName = 'ListDetails';
               props.route.navigation.navigate(navigateName, data);
             }}
           />
         )}
-        {/*<VideoPlayer />*/}
         <Button
           title="Go to Details... again"
           onPress={() => {

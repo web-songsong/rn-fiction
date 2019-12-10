@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
-import {
-  TouchableWithoutFeedback,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import globalColor from '../../globalColor';
 import {Overlay} from 'react-native-elements';
 
 export interface AlbumBaseInfoProps {
   date: string;
   name: string;
-  singerName: string;
+  singerName?: string;
   docs: string;
 }
 
@@ -42,7 +36,7 @@ export default ({date, name, singerName, docs}: AlbumBaseInfoProps) => {
       <View style={style.infoWrap}>
         <Text style={[style.textBase, style.dateText]}>{date}</Text>
         <Text style={[style.textBase, style.titleName]}>{name}</Text>
-        <Text style={style.textBase}>{singerName}</Text>
+        {singerName && <Text style={style.textBase}>{singerName}</Text>}
         <Text
           numberOfLines={2}
           style={style.textBase}

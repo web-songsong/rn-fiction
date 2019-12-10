@@ -5,14 +5,19 @@ import Swiper from 'react-native-swiper';
 import {View, TouchableOpacity} from 'react-native';
 
 export interface ImgItemType {
+  picUrl: string;
   id: number;
-  uri: string;
-  jump_info: any;
+  publishTime: number;
+  description: string;
+  name: string;
+  artist: any;
 }
+
 interface CarouselProps {
   dataList: Array<ImgItemType>;
   onPress: (props: any) => void;
 }
+
 /**/
 export default ({dataList, onPress}: CarouselProps) => {
   return (
@@ -29,7 +34,7 @@ export default ({dataList, onPress}: CarouselProps) => {
               borderRadius: 10,
               overflow: 'hidden',
             }}>
-            <Image source={{uri: item.uri}} style={{flex: 1, height: 200}} />
+            <Image source={{uri: item.picUrl}} style={{flex: 1, height: 200}} />
           </TouchableOpacity>
         ))}
       </Swiper>

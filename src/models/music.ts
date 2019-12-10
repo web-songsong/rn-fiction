@@ -1,5 +1,5 @@
 import {DvaApi} from '../utils/typeInterface';
-import {getMusicVKey} from '../api/listDetails';
+import {getMusic} from '../api/listDetails';
 
 export interface MusicState {
   paused: boolean;
@@ -18,25 +18,25 @@ const music: DvaApi<MusicState> = {
   },
   reducers: {
     addSong(state: MusicState, {payload}: any) {
-      const {uri, songid} = payload;
+      const {uri, id} = payload;
       const list = [...state.playList];
 
-      if (state.flags[songid] > -1) {
+      if (state.flags[id] > -1) {
         return {
           ...state,
-          currentIndex: state.flags[songid],
+          currentIndex: state.flags[id],
         };
       }
-      state.flags[songid] = state.playList.length - state.currentIndex;
+      state.flags[id] = state.playList.length - state.currentIndex;
       list.push({
         uri,
-        songid,
+        id: id,
       });
       return {
         ...state,
         paused: false,
         playList: list,
-        currentIndex: state.flags[songid],
+        currentIndex: state.flags[id],
       };
     },
     changePaused(state: MusicState) {
@@ -68,15 +68,13 @@ const music: DvaApi<MusicState> = {
   },
   effects: {
     *getSongInfo({payload}: any, {call, put}: any) {
-      const {songmid} = payload;
+      const {id} = payload;
       let uri;
       const fn = async () => {
-        const res: any = await getMusicVKey({songmid});
-        console.log(res);
-        if (res.playLists.length) {
-          uri = res.playLists[0];
-        } else {
-          console.log('xxxc----- error');
+        const res: any = await getMusic({id});
+        uri = res.data[0].url;
+        if (!uri) {
+          console.log('dva model music----- error');
         }
       };
       yield call(fn);
