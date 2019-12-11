@@ -16,6 +16,7 @@ const MusicPlayer = ({music}: MusicPlayerProps) => {
     <>
       {!!music.playList.length && (
         <Video
+          audioOnly={true}
           source={{uri: music.playList[music.currentIndex].url}}
           paused={music.paused}
         />

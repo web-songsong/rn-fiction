@@ -4,17 +4,23 @@ import {View, ScrollView, SafeAreaView, Text} from 'react-native';
 import {NavigatorProps} from '../../utils/typeInterface';
 import {getMvPlay} from '../../api/MvVideo';
 import globalColor from '../../globalColor';
+import {connect} from 'react-redux';
 
-const MvVideo = ({navigation}: NavigatorProps) => {
+const MvVideo = ({navigation, dispatch}: NavigatorProps) => {
+  dispatch({
+    type: 'music/outputPaused',
+    payload: {
+      paused: false,
+    },
+  });
   const {params} = navigation.state;
 
   const [mvData, setMvData] = useState();
 
   useEffect(() => {
-    const fn = async () => {
+    (async () => {
       getMvPlay({mvid: params.id}).then(result => setMvData(result.data));
-    };
-    fn();
+    })();
   }, [params.id]);
   return (
     <SafeAreaView>
@@ -47,5 +53,4 @@ const MvVideo = ({navigation}: NavigatorProps) => {
     </SafeAreaView>
   );
 };
-
-export default MvVideo;
+export default connect(() => ({}))(MvVideo);

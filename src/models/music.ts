@@ -42,6 +42,12 @@ const music: DvaApi<MusicState> = {
         paused: !state.paused,
       };
     },
+    outputPaused(state: MusicState, {payload}: any) {
+      return {
+        ...state,
+        paused: payload.paused,
+      };
+    },
     upSong(state: MusicState) {
       let index = state.currentIndex;
       const maxIndex = state.playList.length - 1;
