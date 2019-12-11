@@ -7,48 +7,40 @@ import globalColor from '../../globalColor';
 
 const MvVideo = ({navigation}: NavigatorProps) => {
   const {params} = navigation.state;
-  const mvUrl = params.jump_info.url;
+
   const [mvData, setMvData] = useState();
-  const mvUriInit = (result: any) => {
-    let arr = result.getMVUrl.data[`${mvUrl}`].mp4;
-    return arr[arr.length - 1].freeflow_url[0] || '';
-  };
+
   useEffect(() => {
     const fn = async () => {
-      const result: any = await getMvPlay({vid: params.jump_info.url});
-      setMvData(result);
+      getMvPlay({mvid: params.id}).then(result => setMvData(result.data));
     };
     fn();
-  }, [mvUrl, params.jump_info.url]);
+  }, [params.id]);
   return (
     <SafeAreaView>
       {mvData && (
         <View>
-          {mvUriInit(mvData) ? (
-            <>
-              <View style={{height: 210}}>
-                <VideoPlayer uri={mvUriInit(mvData)} />
-              </View>
-              <Text
-                style={{
-                  fontWeight: '900',
-                  fontSize: 20,
-                  padding: 20,
-                  color: globalColor.INPUT_TEXT,
-                }}>
-                {mvData.mvinfo.data[`${mvUrl}`].name}
-              </Text>
-              <Text
-                style={{
-                  color: globalColor.LIST_TEXT,
-                  padding: 20,
-                }}>
-                {mvData.mvinfo.data[`${mvUrl}`].desc}
-              </Text>
-            </>
-          ) : (
-            <Text style={{color: globalColor.INPUT_TEXT}}> 版权限制</Text>
-          )}
+          <>
+            <View style={{height: 210}}>
+              <VideoPlayer uri={mvData.brs['720']} />
+            </View>
+            <Text
+              style={{
+                fontWeight: '900',
+                fontSize: 20,
+                padding: 20,
+                color: globalColor.INPUT_TEXT,
+              }}>
+              {mvData.name}
+            </Text>
+            <Text
+              style={{
+                color: globalColor.LIST_TEXT,
+                padding: 20,
+              }}>
+              {mvData.desc}
+            </Text>
+          </>
         </View>
       )}
       <ScrollView />

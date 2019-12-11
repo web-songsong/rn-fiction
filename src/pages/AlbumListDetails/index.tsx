@@ -34,7 +34,7 @@ const AlbumListDetails = ({navigation, dispatch}: ListDetailsProps) => {
           marginTop: 30,
           alignItems: 'center',
         }}>
-        <ShowImageWrap uri={params.picUrl} />
+        <ShowImageWrap uri={params.picUrl} borderRadius={20} />
       </View>
       {albumInfo && (
         <>
@@ -47,7 +47,7 @@ const AlbumListDetails = ({navigation, dispatch}: ListDetailsProps) => {
           <AlbumList
             list={albumInfo.songs}
             onPress={(songData: any) => {
-              console.log(`song list ${songData.name} `, songData);
+              console.log(`song ${songData.name} `, songData);
               dispatch({
                 type: 'music/getSongInfo',
                 payload: {

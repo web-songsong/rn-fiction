@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {connect} from 'react-redux';
 import {DvaModel} from '../utils/typeInterface';
 import {MusicState} from '../models/music';
+import MusicPlayer from './MusicPlayer';
 
 export default connect(({music}: {music: MusicState}) => ({music}))(
   ({dispatch}: DvaModel) => {
@@ -23,16 +24,19 @@ export default connect(({music}: {music: MusicState}) => ({music}))(
       });
     };
     return (
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 30,
-          left: 30,
-        }}>
-        <SocialIcon type="twitter" onPress={() => upSong()} />
-        <SocialIcon type="medium" onPress={() => changePaused()} />
-        <SocialIcon type="twitter" onPress={() => downSong()} />
-      </View>
+      <>
+        <MusicPlayer />
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 30,
+            left: 30,
+          }}>
+          <SocialIcon type="twitter" onPress={() => upSong()} />
+          <SocialIcon type="medium" onPress={() => changePaused()} />
+          <SocialIcon type="twitter" onPress={() => downSong()} />
+        </View>
+      </>
     );
   },
 );

@@ -8,6 +8,7 @@ export interface ShowImageWrapProps {
   margin?: number;
   onPress?: any;
   borderRadius?: number;
+  cover?: any;
 }
 
 export default ({
@@ -17,6 +18,7 @@ export default ({
   height,
   margin,
   onPress,
+  cover,
 }: ShowImageWrapProps) => {
   return (
     <View
@@ -27,12 +29,11 @@ export default ({
         overflow: 'hidden',
         margin,
       }}>
+      {cover}
       <TouchableOpacity onPress={onPress}>
         <Image
           source={{uri}}
-          containerStyle={{
-            borderRadius: 300,
-          }}
+          containerStyle={{}}
           style={{
             width: width || 200,
             height: height || 200,

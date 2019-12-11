@@ -2,19 +2,36 @@ import React, {useEffect, useState} from 'react';
 import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg, {ImgItemType} from '../../components/CarouselImg';
 import {ScrollView} from 'react-native';
-import {TabRouterProps} from '../../utils/typeInterface';
-import {getAlbumNewest, getPersonalized} from '../../api/discover';
+import {NavigatorProps, TabRouterProps} from '../../utils/typeInterface';
+import {connect} from 'react-redux';
+import {MusicState} from '../../models/music';
+import {
+  getPersonalizedNewSong,
+  getAlbumNewest,
+  getPersonalized,
+  getPersonalizedMv,
+} from '../../api/discover';
+import NewSong from './NewSong';
 import RecommendList from './RecommendList';
-const Discover = (props: TabRouterProps) => {
+import MvModel from './MvModel';
+
+const Discover = (props: TabRouterProps & NavigatorProps) => {
   const [dataList, setDataList] = useState<Array<ImgItemType>>();
   const [personalized, setPersonalized] = useState();
-
+  const [newSongInfo, setNewSongInfo] = useState();
+  const [mvInfo, setMvInfo] = useState();
   useEffect(() => {
     (async () => {
-      const resultAlbum: any = await getAlbumNewest();
-      const resultPersonal: any = await getPersonalized();
-      setDataList(resultAlbum.albums);
-      setPersonalized(resultPersonal.result);
+      getAlbumNewest().then((resultAlbum: any) =>
+        setDataList(resultAlbum.albums),
+      );
+      getPersonalized().then((resultPersonal: any) =>
+        setPersonalized(resultPersonal.result),
+      );
+      getPersonalizedNewSong().then((resultNewSong: any) =>
+        setNewSongInfo(resultNewSong.result),
+      );
+      getPersonalizedMv().then((resMvInfo: any) => setMvInfo(resMvInfo.result));
     })();
   }, []);
 
@@ -31,12 +48,6 @@ const Discover = (props: TabRouterProps) => {
             }}
           />
         )}
-        {/*/}
-        {/*  title="Go to Details... again"*/}
-        {/*  onPress={() => {*/}
-        {/*    props.route.navigation.navigate('MvVideo', {testName: 'songsong'});*/}
-        {/*  }}*/}
-        {/*/>*/}
         {personalized && (
           <RecommendList
             personalized={personalized}
@@ -45,9 +56,31 @@ const Discover = (props: TabRouterProps) => {
             }}
           />
         )}
+        {newSongInfo && (
+          <NewSong
+            personalized={newSongInfo}
+            onPress={songData => {
+              console.log(`song ${songData.name} `, songData);
+              props.dispatch({
+                type: 'music/getSongInfo',
+                payload: {
+                  ...songData,
+                },
+              });
+            }}
+          />
+        )}
+        {mvInfo && (
+          <MvModel
+            list={mvInfo}
+            onPress={(data: any) => {
+              props.route.navigation.navigate('MvVideo', data);
+            }}
+          />
+        )}
       </ScrollView>
     </>
   );
 };
 
-export default Discover;
+export default connect(({music}: {music: MusicState}) => ({music}))(Discover);
