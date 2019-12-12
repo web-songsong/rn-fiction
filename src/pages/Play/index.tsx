@@ -1,6 +1,4 @@
 import React from 'react';
-import {Text} from 'react-native-elements';
-import VideoPlayer from '../../components/VideoPlayer';
 import {View} from 'react-native';
 
 const Play = () => {
@@ -9,9 +7,10 @@ const Play = () => {
       <View
         style={{
           height: 300,
-        }}>
-        <VideoPlayer />
-      </View>
+          width: '100%',
+          backgroundColor: 'red',
+        }}
+      />
     </>
   );
 };

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {TabView, SceneMap} from 'react-native-tab-view';
-import globalColor from '../../globalColor';
 import HeaderInfo from '../../components/HeaderInfo';
 import Discover from '../Discover';
 import Play from '../Play';
@@ -20,12 +19,13 @@ const Home = (props: NavigatorProps) => {
   const [tabInfoIndex, setTabInfoIndex] = useState(FIRSTSHOW);
   return (
     <>
-      <HeaderInfo title={TAB_ROUTES[tabInfoIndex].title} index={tabInfoIndex} />
       <TabView
-        style={{
-          backgroundColor: globalColor.G_BG_COLOR,
-        }}
-        renderTabBar={() => null}
+        renderTabBar={() => (
+          <HeaderInfo
+            title={TAB_ROUTES[tabInfoIndex].title}
+            index={tabInfoIndex}
+          />
+        )}
         navigationState={{
           index: tabInfoIndex,
           routes: TAB_ROUTES.map(d => ({...d, ...props})),

@@ -18,7 +18,6 @@ const music: DvaApi<MusicState> = {
   },
   reducers: {
     addSong(state: MusicState, {payload}: {payload: any[]}) {
-      // const {id} = payload;
       const list = [...state.playList];
       payload.forEach((item, key) => {
         let id = item.id;

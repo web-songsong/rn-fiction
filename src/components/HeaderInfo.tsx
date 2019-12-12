@@ -18,9 +18,14 @@ const style = StyleSheet.create({
   },
 });
 export default ({title, index}: HaderProps) => {
+  console.log('head=====');
   return (
     <Header
       containerStyle={{
+        position: 'absolute',
+        width: '100%',
+        backgroundColor: 'transparent',
+        zIndex: 99,
         borderBottomWidth: 0,
       }}
       placement="left"

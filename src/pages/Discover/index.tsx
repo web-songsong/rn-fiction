@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import SearchBarHome from '../../components/SearchBarHome';
 import CarouselImg, {ImgItemType} from '../../components/CarouselImg';
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {NavigatorProps, TabRouterProps} from '../../utils/typeInterface';
 import {connect} from 'react-redux';
 import {MusicState} from '../../models/music';
@@ -36,7 +36,10 @@ const Discover = (props: TabRouterProps & NavigatorProps) => {
   }, []);
 
   return (
-    <>
+    <View
+      style={{
+        marginTop: 100,
+      }}>
       <SearchBarHome />
       <ScrollView>
         {dataList && (
@@ -79,7 +82,7 @@ const Discover = (props: TabRouterProps & NavigatorProps) => {
           />
         )}
       </ScrollView>
-    </>
+    </View>
   );
 };
 

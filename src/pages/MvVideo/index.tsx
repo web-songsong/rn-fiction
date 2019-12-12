@@ -10,7 +10,7 @@ const MvVideo = ({navigation, dispatch}: NavigatorProps) => {
   dispatch({
     type: 'music/outputPaused',
     payload: {
-      paused: false,
+      paused: true,
     },
   });
   const {params} = navigation.state;
