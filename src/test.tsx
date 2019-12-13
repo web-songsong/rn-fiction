@@ -3,20 +3,15 @@ import {Text} from 'react-native-elements';
 
 import {connect} from 'react-redux';
 
-const Test = props => {
+const Test = () => {
   return (
     <Text
       style={{
         color: 'red',
       }}
-      onPress={() => {
-        props.dispatch({
-          type: 'products/songsong',
-        });
-      }}>
-      {props.products}
-    </Text>
+      onPress={() => {}}
+    />
   );
 };
 
-export default connect(({products}) => ({products}))(Test);
+export default connect(({}) => ({}))(Test);
