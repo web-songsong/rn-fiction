@@ -8,7 +8,6 @@ const Play = () => {
         style={{
           height: 300,
           width: '100%',
-          backgroundColor: 'red',
         }}
       />
     </>

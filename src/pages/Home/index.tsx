@@ -6,10 +6,10 @@ import Play from '../Play';
 import {NavigatorProps} from '../../utils/typeInterface';
 const Home = (props: NavigatorProps) => {
   const TAB_ROUTES = [
-    {key: 'Play', title: 'PLAY'},
+    // {key: 'Play', title: 'PLAY'},
     {key: 'Discover', title: 'DISCOVER'},
   ];
-  const FIRSTSHOW = 1;
+  const FIRSTSHOW = 0;
 
   const RENDER_TEMPLATE = {
     Discover: Discover,

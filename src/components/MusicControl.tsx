@@ -32,9 +32,9 @@ export default connect(({music}: {music: MusicState}) => ({music}))(
             bottom: 30,
             left: 30,
           }}>
-          <SocialIcon type="twitter" onPress={() => upSong()} />
-          <SocialIcon type="medium" onPress={() => changePaused()} />
-          <SocialIcon type="twitter" onPress={() => downSong()} />
+          <SocialIcon type="twitter" onPress={upSong} />
+          <SocialIcon type="medium" onPress={changePaused} />
+          <SocialIcon type="twitter" onPress={downSong} />
         </View>
       </>
     );
